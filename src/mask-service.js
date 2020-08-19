@@ -8,4 +8,7 @@ export default class MaskService {
 	static isValid(type, value, settings) {
 		return MaskResolver.resolve(type).validate(value, settings);
 	}
+	static toRawValue(type, maskedValue, settings) {
+		return MaskResolver.resolve(type).getRawValue(maskedValue, settings)
+	}
 }
