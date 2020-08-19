@@ -29,7 +29,10 @@ export default class BaseMask {
 	}
 
 	removeNotNumbers(text) {
-		return text.replace(/[^0-9]+/g, '');
+		if (text)
+			return text.replace(/[^0-9]+/g, '');
+		else
+			return '';
 	}
 
 	removeWhiteSpaces(text) {
