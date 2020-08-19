@@ -1,8 +1,9 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
-  (factory((global.ReactTextMask = {}),global.react));
-}(this, (function (exports,React) { 'use strict';
+    typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
+      (factory((global.ReactTextMask = {}), global.react));
+}(this, (function (exports, React) {
+  'use strict';
 
   var React__default = 'default' in React ? React['default'] : React;
 
@@ -163,60 +164,63 @@
   var VMasker = require('./internal-dependencies/vanilla-masker.js');
 
   var BaseMask =
-  /*#__PURE__*/
-  function () {
-    function BaseMask() {
-      _classCallCheck(this, BaseMask);
-    }
-
-    _createClass(BaseMask, [{
-      key: "getVMasker",
-      value: function getVMasker() {
-        return VMasker;
+    /*#__PURE__*/
+    function () {
+      function BaseMask() {
+        _classCallCheck(this, BaseMask);
       }
-    }, {
-      key: "mergeSettings",
-      value: function mergeSettings(obj1, obj2) {
-        var obj3 = {};
 
-        for (var attrname in obj1) {
-          obj3[attrname] = obj1[attrname];
+      _createClass(BaseMask, [{
+        key: "getVMasker",
+        value: function getVMasker() {
+          return VMasker;
         }
+      }, {
+        key: "mergeSettings",
+        value: function mergeSettings(obj1, obj2) {
+          var obj3 = {};
 
-        for (var attrname in obj2) {
-          obj3[attrname] = obj2[attrname];
+          for (var attrname in obj1) {
+            obj3[attrname] = obj1[attrname];
+          }
+
+          for (var attrname in obj2) {
+            obj3[attrname] = obj2[attrname];
+          }
+
+          return obj3;
         }
-
-        return obj3;
-      }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue(maskedValue, settings) {
-        return maskedValue;
-      }
-    }, {
-      key: "getDefaultValue",
-      value: function getDefaultValue(value) {
-        if (value === undefined || value === null) {
-          return '';
+      }, {
+        key: "getRawValue",
+        value: function getRawValue(maskedValue, settings) {
+          return maskedValue;
         }
+      }, {
+        key: "getDefaultValue",
+        value: function getDefaultValue(value) {
+          if (value === undefined || value === null) {
+            return '';
+          }
 
-        return value;
-      }
-    }, {
-      key: "removeNotNumbers",
-      value: function removeNotNumbers(text) {
-        return text.replace(/[^0-9]+/g, '');
-      }
-    }, {
-      key: "removeWhiteSpaces",
-      value: function removeWhiteSpaces(text) {
-        return (text || '').replace(/\s/g, '');
-      }
-    }]);
+          return value;
+        }
+      }, {
+        key: "removeNotNumbers",
+        value: function removeNotNumbers(text) {
+          if (text)
+            return text.replace(/[^0-9]+/g, '');
+          else
+            return '';
+        }
+      }, {
+        key: "removeWhiteSpaces",
+        value: function removeWhiteSpaces(text) {
+          return (text || '').replace(/\s/g, '');
+        }
+      }]);
 
-    return BaseMask;
-  }();
+      return BaseMask;
+    }();
 
   var PHONE_8_MASK = '9999-9999';
   var PHONE_9_MASK = '99999-9999';
@@ -225,80 +229,80 @@
     dddMask: '(99) '
   };
   var CelPhoneMask =
-  /*#__PURE__*/
-  function (_BaseMask) {
-    _inherits(CelPhoneMask, _BaseMask);
+    /*#__PURE__*/
+    function (_BaseMask) {
+      _inherits(CelPhoneMask, _BaseMask);
 
-    function CelPhoneMask() {
-      _classCallCheck(this, CelPhoneMask);
+      function CelPhoneMask() {
+        _classCallCheck(this, CelPhoneMask);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(CelPhoneMask).apply(this, arguments));
-    }
-
-    _createClass(CelPhoneMask, [{
-      key: "getValue",
-      value: function getValue(value, settings) {
-        var mask = this._getMask(value, settings);
-
-        return this.getVMasker().toPattern(value, mask);
+        return _possibleConstructorReturn(this, _getPrototypeOf(CelPhoneMask).apply(this, arguments));
       }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue(maskedValue, settings) {
-        return _get(_getPrototypeOf(CelPhoneMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
-      }
-    }, {
-      key: "validate",
-      value: function validate(value, settings) {
-        var valueToValidate = _get(_getPrototypeOf(CelPhoneMask.prototype), "getDefaultValue", this).call(this, value);
 
-        valueToValidate = this.getValue(value, settings);
+      _createClass(CelPhoneMask, [{
+        key: "getValue",
+        value: function getValue(value, settings) {
+          var mask = this._getMask(value, settings);
 
-        var mask = this._getMask(value, settings);
+          return this.getVMasker().toPattern(value, mask);
+        }
+      }, {
+        key: "getRawValue",
+        value: function getRawValue(maskedValue, settings) {
+          return _get(_getPrototypeOf(CelPhoneMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
+        }
+      }, {
+        key: "validate",
+        value: function validate(value, settings) {
+          var valueToValidate = _get(_getPrototypeOf(CelPhoneMask.prototype), "getDefaultValue", this).call(this, value);
 
-        return valueToValidate.length === mask.length;
-      }
-    }, {
-      key: "_getMask",
-      value: function _getMask(value, settings) {
-        var _this = this;
+          valueToValidate = this.getValue(value, settings);
 
-        var mergedSettings = _get(_getPrototypeOf(CelPhoneMask.prototype), "mergeSettings", this).call(this, CEL_PHONE_SETTINGS, settings);
+          var mask = this._getMask(value, settings);
 
-        var numbers = _get(_getPrototypeOf(CelPhoneMask.prototype), "removeNotNumbers", this).call(this, value);
+          return valueToValidate.length === mask.length;
+        }
+      }, {
+        key: "_getMask",
+        value: function _getMask(value, settings) {
+          var _this = this;
 
-        var mask = PHONE_8_MASK;
+          var mergedSettings = _get(_getPrototypeOf(CelPhoneMask.prototype), "mergeSettings", this).call(this, CEL_PHONE_SETTINGS, settings);
 
-        var use9DigitMask = function () {
-          if (mergedSettings.withDDD) {
-            var numbersDDD = _get(_getPrototypeOf(CelPhoneMask.prototype), "removeNotNumbers", _this).call(_this, mergedSettings.dddMask);
+          var numbers = _get(_getPrototypeOf(CelPhoneMask.prototype), "removeNotNumbers", this).call(this, value);
 
-            var remainingValueNumbers = numbers.substr(numbersDDD.length);
-            return remainingValueNumbers.length >= 9;
-          } else {
-            return numbers.length >= 9;
+          var mask = PHONE_8_MASK;
+
+          var use9DigitMask = function () {
+            if (mergedSettings.withDDD) {
+              var numbersDDD = _get(_getPrototypeOf(CelPhoneMask.prototype), "removeNotNumbers", _this).call(_this, mergedSettings.dddMask);
+
+              var remainingValueNumbers = numbers.substr(numbersDDD.length);
+              return remainingValueNumbers.length >= 9;
+            } else {
+              return numbers.length >= 9;
+            }
+          }();
+
+          if (use9DigitMask) {
+            mask = PHONE_9_MASK;
           }
-        }();
 
-        if (use9DigitMask) {
-          mask = PHONE_9_MASK;
+          if (mergedSettings.withDDD) {
+            mask = "".concat(mergedSettings.dddMask).concat(mask);
+          }
+
+          return mask;
         }
-
-        if (mergedSettings.withDDD) {
-          mask = "".concat(mergedSettings.dddMask).concat(mask);
+      }], [{
+        key: "getType",
+        value: function getType() {
+          return 'cel-phone';
         }
+      }]);
 
-        return mask;
-      }
-    }], [{
-      key: "getType",
-      value: function getType() {
-        return 'cel-phone';
-      }
-    }]);
-
-    return CelPhoneMask;
-  }(BaseMask);
+      return CelPhoneMask;
+    }(BaseMask);
 
   var CPF_MASK = '999.999.999-99';
 
@@ -353,40 +357,40 @@
   };
 
   var CpfMask =
-  /*#__PURE__*/
-  function (_BaseMask) {
-    _inherits(CpfMask, _BaseMask);
+    /*#__PURE__*/
+    function (_BaseMask) {
+      _inherits(CpfMask, _BaseMask);
 
-    function CpfMask() {
-      _classCallCheck(this, CpfMask);
+      function CpfMask() {
+        _classCallCheck(this, CpfMask);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(CpfMask).apply(this, arguments));
-    }
+        return _possibleConstructorReturn(this, _getPrototypeOf(CpfMask).apply(this, arguments));
+      }
 
-    _createClass(CpfMask, [{
-      key: "getValue",
-      value: function getValue(value, settings) {
-        return this.getVMasker().toPattern(value, CPF_MASK);
-      }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue(maskedValue, settings) {
-        return _get(_getPrototypeOf(CpfMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
-      }
-    }, {
-      key: "validate",
-      value: function validate(value, settings) {
-        return validateCPF(value);
-      }
-    }], [{
-      key: "getType",
-      value: function getType() {
-        return 'cpf';
-      }
-    }]);
+      _createClass(CpfMask, [{
+        key: "getValue",
+        value: function getValue(value, settings) {
+          return this.getVMasker().toPattern(value, CPF_MASK);
+        }
+      }, {
+        key: "getRawValue",
+        value: function getRawValue(maskedValue, settings) {
+          return _get(_getPrototypeOf(CpfMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
+        }
+      }, {
+        key: "validate",
+        value: function validate(value, settings) {
+          return validateCPF(value);
+        }
+      }], [{
+        key: "getType",
+        value: function getType() {
+          return 'cpf';
+        }
+      }]);
 
-    return CpfMask;
-  }(BaseMask);
+      return CpfMask;
+    }(BaseMask);
 
   var CREDIT_CARD_MASK = '9999 9999 9999 9999';
   var CREDIT_CARD_OBFUSCATED_MASK = '9999 **** **** 9999';
@@ -394,60 +398,60 @@
     obfuscated: false
   };
   var CreditCardMask =
-  /*#__PURE__*/
-  function (_BaseMask) {
-    _inherits(CreditCardMask, _BaseMask);
+    /*#__PURE__*/
+    function (_BaseMask) {
+      _inherits(CreditCardMask, _BaseMask);
 
-    function CreditCardMask() {
-      _classCallCheck(this, CreditCardMask);
+      function CreditCardMask() {
+        _classCallCheck(this, CreditCardMask);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(CreditCardMask).apply(this, arguments));
-    }
-
-    _createClass(CreditCardMask, [{
-      key: "getValue",
-      value: function getValue(value, settings) {
-        var selectedMask = this._getMask(settings);
-
-        return this.getVMasker().toPattern(value, selectedMask);
+        return _possibleConstructorReturn(this, _getPrototypeOf(CreditCardMask).apply(this, arguments));
       }
-    }, {
-      key: "validate",
-      value: function validate(value, settings) {
-        if (!!value) {
+
+      _createClass(CreditCardMask, [{
+        key: "getValue",
+        value: function getValue(value, settings) {
           var selectedMask = this._getMask(settings);
 
-          return value.length === selectedMask.length;
+          return this.getVMasker().toPattern(value, selectedMask);
         }
+      }, {
+        key: "validate",
+        value: function validate(value, settings) {
+          if (!!value) {
+            var selectedMask = this._getMask(settings);
 
-        return true;
-      }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue(maskedValue, settings) {
-        if (!maskedValue) return [];
-        return maskedValue.split(' ').map(function (val) {
-          if (!val) return '';
-          return val.trim();
-        });
-      }
-    }, {
-      key: "_getMask",
-      value: function _getMask(settings) {
-        var mergedSettings = _get(_getPrototypeOf(CreditCardMask.prototype), "mergeSettings", this).call(this, CREDIT_CARD_SETTINGS, settings);
+            return value.length === selectedMask.length;
+          }
 
-        var selectedMask = mergedSettings.obfuscated ? CREDIT_CARD_OBFUSCATED_MASK : CREDIT_CARD_MASK;
-        return selectedMask;
-      }
-    }], [{
-      key: "getType",
-      value: function getType() {
-        return 'credit-card';
-      }
-    }]);
+          return true;
+        }
+      }, {
+        key: "getRawValue",
+        value: function getRawValue(maskedValue, settings) {
+          if (!maskedValue) return [];
+          return maskedValue.split(' ').map(function (val) {
+            if (!val) return '';
+            return val.trim();
+          });
+        }
+      }, {
+        key: "_getMask",
+        value: function _getMask(settings) {
+          var mergedSettings = _get(_getPrototypeOf(CreditCardMask.prototype), "mergeSettings", this).call(this, CREDIT_CARD_SETTINGS, settings);
 
-    return CreditCardMask;
-  }(BaseMask);
+          var selectedMask = mergedSettings.obfuscated ? CREDIT_CARD_OBFUSCATED_MASK : CREDIT_CARD_MASK;
+          return selectedMask;
+        }
+      }], [{
+        key: "getType",
+        value: function getType() {
+          return 'credit-card';
+        }
+      }]);
+
+      return CreditCardMask;
+    }(BaseMask);
 
   var TinyMask = require('tinymask');
   var DEFAULT_TRANSLATION = {
@@ -465,129 +469,129 @@
     }
   };
   var CustomMask =
-  /*#__PURE__*/
-  function (_BaseMask) {
-    _inherits(CustomMask, _BaseMask);
+    /*#__PURE__*/
+    function (_BaseMask) {
+      _inherits(CustomMask, _BaseMask);
 
-    function CustomMask() {
-      _classCallCheck(this, CustomMask);
+      function CustomMask() {
+        _classCallCheck(this, CustomMask);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(CustomMask).apply(this, arguments));
-    }
+        return _possibleConstructorReturn(this, _getPrototypeOf(CustomMask).apply(this, arguments));
+      }
 
-    _createClass(CustomMask, [{
-      key: "getValue",
-      value: function getValue(value, settings) {
-        if (value === '') {
-          return value;
+      _createClass(CustomMask, [{
+        key: "getValue",
+        value: function getValue(value, settings) {
+          if (value === '') {
+            return value;
+          }
+
+          var mask = settings.mask;
+          var translation = this.mergeSettings(DEFAULT_TRANSLATION, settings.translation);
+          var masked = new TinyMask(mask, {
+            translation: translation
+          }).mask(value);
+          return masked;
         }
+      }, {
+        key: "getRawValue",
+        value: function getRawValue(maskedValue, settings) {
+          if (!!settings && settings.getRawValue) {
+            return settings.getRawValue(maskedValue, settings);
+          }
 
-        var mask = settings.mask;
-        var translation = this.mergeSettings(DEFAULT_TRANSLATION, settings.translation);
-        var masked = new TinyMask(mask, {
-          translation: translation
-        }).mask(value);
-        return masked;
-      }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue(maskedValue, settings) {
-        if (!!settings && settings.getRawValue) {
-          return settings.getRawValue(maskedValue, settings);
+          return maskedValue;
         }
+      }, {
+        key: "validate",
+        value: function validate(value, settings) {
+          if (!!settings && settings.validator) {
+            return settings.validator(value, settings);
+          }
 
-        return maskedValue;
-      }
-    }, {
-      key: "validate",
-      value: function validate(value, settings) {
-        if (!!settings && settings.validator) {
-          return settings.validator(value, settings);
+          return true;
         }
+      }], [{
+        key: "getType",
+        value: function getType() {
+          return 'custom';
+        }
+      }]);
 
-        return true;
-      }
-    }], [{
-      key: "getType",
-      value: function getType() {
-        return 'custom';
-      }
-    }]);
-
-    return CustomMask;
-  }(BaseMask);
+      return CustomMask;
+    }(BaseMask);
 
   var _require = require('./internal-dependencies/date-parser.js'),
-      parseStringDate = _require.parseStringDate;
+    parseStringDate = _require.parseStringDate;
 
   var DATETIME_MASK_SETTINGS = {
     format: 'DD/MM/YYYY HH:mm:ss'
   };
   var DatetimeMask =
-  /*#__PURE__*/
-  function (_BaseMask) {
-    _inherits(DatetimeMask, _BaseMask);
+    /*#__PURE__*/
+    function (_BaseMask) {
+      _inherits(DatetimeMask, _BaseMask);
 
-    function DatetimeMask() {
-      _classCallCheck(this, DatetimeMask);
+      function DatetimeMask() {
+        _classCallCheck(this, DatetimeMask);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(DatetimeMask).apply(this, arguments));
-    }
+        return _possibleConstructorReturn(this, _getPrototypeOf(DatetimeMask).apply(this, arguments));
+      }
 
-    _createClass(DatetimeMask, [{
-      key: "getValue",
-      value: function getValue(value, settings) {
-        var mergedSettings = this._getMergedSettings(settings);
+      _createClass(DatetimeMask, [{
+        key: "getValue",
+        value: function getValue(value, settings) {
+          var mergedSettings = this._getMergedSettings(settings);
 
-        var mask = '';
+          var mask = '';
 
-        for (var i = 0; i < mergedSettings.format.length; i++) {
-          mask += mergedSettings.format[i].replace(/[a-zA-Z]+/g, '9');
+          for (var i = 0; i < mergedSettings.format.length; i++) {
+            mask += mergedSettings.format[i].replace(/[a-zA-Z]+/g, '9');
+          }
+
+          return this.getVMasker().toPattern(value, mask);
         }
+      }, {
+        key: "getRawValue",
+        value: function getRawValue(maskedValue, settings) {
+          var mergedSettings = this._getMergedSettings(settings);
 
-        return this.getVMasker().toPattern(value, mask);
-      }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue(maskedValue, settings) {
-        var mergedSettings = this._getMergedSettings(settings);
+          return parseStringDate(maskedValue, mergedSettings.format);
+        }
+      }, {
+        key: "validate",
+        value: function validate(value, settings) {
+          var maskedValue = this.getValue(value, settings);
 
-        return parseStringDate(maskedValue, mergedSettings.format);
-      }
-    }, {
-      key: "validate",
-      value: function validate(value, settings) {
-        var maskedValue = this.getValue(value, settings);
+          var mergedSettings = this._getMergedSettings(settings);
 
-        var mergedSettings = this._getMergedSettings(settings);
+          var date = parseStringDate(maskedValue, mergedSettings.format);
 
-        var date = parseStringDate(maskedValue, mergedSettings.format);
+          var isValid = this._isValidDate(date);
 
-        var isValid = this._isValidDate(date);
+          return isValid;
+        }
+      }, {
+        key: "_getMergedSettings",
+        value: function _getMergedSettings(settings) {
+          return _get(_getPrototypeOf(DatetimeMask.prototype), "mergeSettings", this).call(this, DATETIME_MASK_SETTINGS, settings);
+        }
+        /** https://stackoverflow.com/a/1353711/3670829 */
 
-        return isValid;
-      }
-    }, {
-      key: "_getMergedSettings",
-      value: function _getMergedSettings(settings) {
-        return _get(_getPrototypeOf(DatetimeMask.prototype), "mergeSettings", this).call(this, DATETIME_MASK_SETTINGS, settings);
-      }
-      /** https://stackoverflow.com/a/1353711/3670829 */
+      }, {
+        key: "_isValidDate",
+        value: function _isValidDate(d) {
+          return d instanceof Date && !isNaN(d);
+        }
+      }], [{
+        key: "getType",
+        value: function getType() {
+          return 'datetime';
+        }
+      }]);
 
-    }, {
-      key: "_isValidDate",
-      value: function _isValidDate(d) {
-        return d instanceof Date && !isNaN(d);
-      }
-    }], [{
-      key: "getType",
-      value: function getType() {
-        return 'datetime';
-      }
-    }]);
-
-    return DatetimeMask;
-  }(BaseMask);
+      return DatetimeMask;
+    }(BaseMask);
 
   var MONEY_MASK_SETTINGS = {
     precision: 2,
@@ -598,144 +602,144 @@
     zeroCents: false
   };
   var MoneyMask =
-  /*#__PURE__*/
-  function (_BaseMask) {
-    _inherits(MoneyMask, _BaseMask);
+    /*#__PURE__*/
+    function (_BaseMask) {
+      _inherits(MoneyMask, _BaseMask);
 
-    function MoneyMask() {
-      _classCallCheck(this, MoneyMask);
+      function MoneyMask() {
+        _classCallCheck(this, MoneyMask);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(MoneyMask).apply(this, arguments));
-    }
+        return _possibleConstructorReturn(this, _getPrototypeOf(MoneyMask).apply(this, arguments));
+      }
 
-    _createClass(MoneyMask, [{
-      key: "getValue",
-      value: function getValue(value, settings, oldValue) {
-        var mergedSettings = _get(_getPrototypeOf(MoneyMask.prototype), "mergeSettings", this).call(this, MONEY_MASK_SETTINGS, settings);
+      _createClass(MoneyMask, [{
+        key: "getValue",
+        value: function getValue(value, settings, oldValue) {
+          var mergedSettings = _get(_getPrototypeOf(MoneyMask.prototype), "mergeSettings", this).call(this, MONEY_MASK_SETTINGS, settings);
 
-        if (mergedSettings.suffixUnit && oldValue && value) {
-          // value: 123 R
-          // oldValue: 123 R$
-          if (value.length == oldValue.length - 1) {
-            var cleared = this.removeNotNumbers(value);
-            value = cleared.substr(0, cleared.length - 1);
+          if (mergedSettings.suffixUnit && oldValue && value) {
+            // value: 123 R
+            // oldValue: 123 R$
+            if (value.length == oldValue.length - 1) {
+              var cleared = this.removeNotNumbers(value);
+              value = cleared.substr(0, cleared.length - 1);
+            }
+          }
+
+          var masked = this.getVMasker().toMoney(value, mergedSettings);
+          return masked;
+        }
+      }, {
+        key: "getRawValue",
+        value: function getRawValue(maskedValue, settings) {
+          var mergedSettings = _get(_getPrototypeOf(MoneyMask.prototype), "mergeSettings", this).call(this, MONEY_MASK_SETTINGS, settings);
+
+          var normalized = _get(_getPrototypeOf(MoneyMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
+
+          var dotPosition = normalized.length - mergedSettings.precision;
+          normalized = this._insert(normalized, dotPosition, '.');
+          return Number(normalized);
+        }
+      }, {
+        key: "validate",
+        value: function validate(value, settings) {
+          return true;
+        }
+      }, {
+        key: "_insert",
+        value: function _insert(text, index, string) {
+          if (index > 0) {
+            return text.substring(0, index) + string + text.substring(index, text.length);
+          } else {
+            return string + text;
           }
         }
-
-        var masked = this.getVMasker().toMoney(value, mergedSettings);
-        return masked;
-      }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue(maskedValue, settings) {
-        var mergedSettings = _get(_getPrototypeOf(MoneyMask.prototype), "mergeSettings", this).call(this, MONEY_MASK_SETTINGS, settings);
-
-        var normalized = _get(_getPrototypeOf(MoneyMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
-
-        var dotPosition = normalized.length - mergedSettings.precision;
-        normalized = this._insert(normalized, dotPosition, '.');
-        return Number(normalized);
-      }
-    }, {
-      key: "validate",
-      value: function validate(value, settings) {
-        return true;
-      }
-    }, {
-      key: "_insert",
-      value: function _insert(text, index, string) {
-        if (index > 0) {
-          return text.substring(0, index) + string + text.substring(index, text.length);
-        } else {
-          return string + text;
+      }], [{
+        key: "getType",
+        value: function getType() {
+          return 'money';
         }
-      }
-    }], [{
-      key: "getType",
-      value: function getType() {
-        return 'money';
-      }
-    }]);
+      }]);
 
-    return MoneyMask;
-  }(BaseMask);
+      return MoneyMask;
+    }(BaseMask);
 
   var OnlyNumbersMask =
-  /*#__PURE__*/
-  function (_BaseMask) {
-    _inherits(OnlyNumbersMask, _BaseMask);
+    /*#__PURE__*/
+    function (_BaseMask) {
+      _inherits(OnlyNumbersMask, _BaseMask);
 
-    function OnlyNumbersMask() {
-      _classCallCheck(this, OnlyNumbersMask);
+      function OnlyNumbersMask() {
+        _classCallCheck(this, OnlyNumbersMask);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(OnlyNumbersMask).apply(this, arguments));
-    }
+        return _possibleConstructorReturn(this, _getPrototypeOf(OnlyNumbersMask).apply(this, arguments));
+      }
 
-    _createClass(OnlyNumbersMask, [{
-      key: "getValue",
-      value: function getValue(value, settings) {
-        return this.getVMasker().toNumber(value);
-      }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue(maskedValue, settings) {
-        return _get(_getPrototypeOf(OnlyNumbersMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
-      }
-    }, {
-      key: "validate",
-      value: function validate(value, settings) {
-        return true;
-      }
-    }], [{
-      key: "getType",
-      value: function getType() {
-        return 'only-numbers';
-      }
-    }]);
+      _createClass(OnlyNumbersMask, [{
+        key: "getValue",
+        value: function getValue(value, settings) {
+          return this.getVMasker().toNumber(value);
+        }
+      }, {
+        key: "getRawValue",
+        value: function getRawValue(maskedValue, settings) {
+          return _get(_getPrototypeOf(OnlyNumbersMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
+        }
+      }, {
+        key: "validate",
+        value: function validate(value, settings) {
+          return true;
+        }
+      }], [{
+        key: "getType",
+        value: function getType() {
+          return 'only-numbers';
+        }
+      }]);
 
-    return OnlyNumbersMask;
-  }(BaseMask);
+      return OnlyNumbersMask;
+    }(BaseMask);
 
   var ZIP_CODE_MASK = '99999-999';
   var ZipCodeMask =
-  /*#__PURE__*/
-  function (_BaseMask) {
-    _inherits(ZipCodeMask, _BaseMask);
+    /*#__PURE__*/
+    function (_BaseMask) {
+      _inherits(ZipCodeMask, _BaseMask);
 
-    function ZipCodeMask() {
-      _classCallCheck(this, ZipCodeMask);
+      function ZipCodeMask() {
+        _classCallCheck(this, ZipCodeMask);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(ZipCodeMask).apply(this, arguments));
-    }
-
-    _createClass(ZipCodeMask, [{
-      key: "getValue",
-      value: function getValue(value, settings) {
-        return this.getVMasker().toPattern(value, ZIP_CODE_MASK);
+        return _possibleConstructorReturn(this, _getPrototypeOf(ZipCodeMask).apply(this, arguments));
       }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue(maskedValue, settings) {
-        return _get(_getPrototypeOf(ZipCodeMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
-      }
-    }, {
-      key: "validate",
-      value: function validate(value, settings) {
-        if (!!value) {
-          return value.length === ZIP_CODE_MASK.length;
+
+      _createClass(ZipCodeMask, [{
+        key: "getValue",
+        value: function getValue(value, settings) {
+          return this.getVMasker().toPattern(value, ZIP_CODE_MASK);
         }
+      }, {
+        key: "getRawValue",
+        value: function getRawValue(maskedValue, settings) {
+          return _get(_getPrototypeOf(ZipCodeMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
+        }
+      }, {
+        key: "validate",
+        value: function validate(value, settings) {
+          if (!!value) {
+            return value.length === ZIP_CODE_MASK.length;
+          }
 
-        return true;
-      }
-    }], [{
-      key: "getType",
-      value: function getType() {
-        return 'zip-code';
-      }
-    }]);
+          return true;
+        }
+      }], [{
+        key: "getType",
+        value: function getType() {
+          return 'zip-code';
+        }
+      }]);
 
-    return ZipCodeMask;
-  }(BaseMask);
+      return ZipCodeMask;
+    }(BaseMask);
 
   var CNPJ_MASK = '99.999.999/9999-99';
 
@@ -759,40 +763,40 @@
   };
 
   var CnpjMask =
-  /*#__PURE__*/
-  function (_BaseMask) {
-    _inherits(CnpjMask, _BaseMask);
+    /*#__PURE__*/
+    function (_BaseMask) {
+      _inherits(CnpjMask, _BaseMask);
 
-    function CnpjMask() {
-      _classCallCheck(this, CnpjMask);
+      function CnpjMask() {
+        _classCallCheck(this, CnpjMask);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(CnpjMask).apply(this, arguments));
-    }
+        return _possibleConstructorReturn(this, _getPrototypeOf(CnpjMask).apply(this, arguments));
+      }
 
-    _createClass(CnpjMask, [{
-      key: "getValue",
-      value: function getValue(value, settings) {
-        return this.getVMasker().toPattern(value, CNPJ_MASK);
-      }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue(maskedValue, settings) {
-        return _get(_getPrototypeOf(CnpjMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
-      }
-    }, {
-      key: "validate",
-      value: function validate(value, settings) {
-        return validateCnpj(value);
-      }
-    }], [{
-      key: "getType",
-      value: function getType() {
-        return 'cnpj';
-      }
-    }]);
+      _createClass(CnpjMask, [{
+        key: "getValue",
+        value: function getValue(value, settings) {
+          return this.getVMasker().toPattern(value, CNPJ_MASK);
+        }
+      }, {
+        key: "getRawValue",
+        value: function getRawValue(maskedValue, settings) {
+          return _get(_getPrototypeOf(CnpjMask.prototype), "removeNotNumbers", this).call(this, maskedValue);
+        }
+      }, {
+        key: "validate",
+        value: function validate(value, settings) {
+          return validateCnpj(value);
+        }
+      }], [{
+        key: "getType",
+        value: function getType() {
+          return 'cnpj';
+        }
+      }]);
 
-    return CnpjMask;
-  }(BaseMask);
+      return CnpjMask;
+    }(BaseMask);
 
 
 
@@ -811,248 +815,253 @@
   var maskKeys = Object.keys(Masks);
 
   var MaskResolver =
-  /*#__PURE__*/
-  function () {
-    function MaskResolver() {
-      _classCallCheck(this, MaskResolver);
-    }
-
-    _createClass(MaskResolver, null, [{
-      key: "resolve",
-      value: function resolve(kind) {
-        var maskKey = maskKeys.filter(function (m) {
-          var handler = Masks[m];
-          return handler && handler.getType && handler.getType() === kind;
-        })[0];
-        var handler = Masks[maskKey];
-
-        if (!handler) {
-          throw new Error('Mask type not supported.');
-        }
-
-        return new handler();
+    /*#__PURE__*/
+    function () {
+      function MaskResolver() {
+        _classCallCheck(this, MaskResolver);
       }
-    }]);
 
-    return MaskResolver;
-  }();
+      _createClass(MaskResolver, null, [{
+        key: "resolve",
+        value: function resolve(kind) {
+          var maskKey = maskKeys.filter(function (m) {
+            var handler = Masks[m];
+            return handler && handler.getType && handler.getType() === kind;
+          })[0];
+          var handler = Masks[maskKey];
+
+          if (!handler) {
+            throw new Error('Mask type not supported.');
+          }
+
+          return new handler();
+        }
+      }]);
+
+      return MaskResolver;
+    }();
 
   var BaseTextComponent =
-  /*#__PURE__*/
-  function (_Component) {
-    _inherits(BaseTextComponent, _Component);
+    /*#__PURE__*/
+    function (_Component) {
+      _inherits(BaseTextComponent, _Component);
 
-    function BaseTextComponent(props) {
-      var _this;
+      function BaseTextComponent(props) {
+        var _this;
 
-      _classCallCheck(this, BaseTextComponent);
+        _classCallCheck(this, BaseTextComponent);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(BaseTextComponent).call(this, props));
+        _this = _possibleConstructorReturn(this, _getPrototypeOf(BaseTextComponent).call(this, props));
 
-      _this._resolveMaskHandler(props.kind);
+        _this._resolveMaskHandler(props.kind);
 
-      var value = _this._getDefaultMaskedValue(props.defaultValue);
+        var value = _this._getDefaultMaskedValue(props.defaultValue);
 
-      _this.state = {
-        value: value
-      };
-      return _this;
-    }
-
-    _createClass(BaseTextComponent, [{
-      key: "shouldComponentUpdate",
-      value: function shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.kind !== nextProps.kind) {
-          this._resolveMaskHandler(nextProps.kind);
-        }
-
-        return true;
+        _this.state = {
+          value: value
+        };
+        return _this;
       }
-    }, {
-      key: "updateValue",
-      value: function updateValue(text) {
-        var _this2 = this;
 
-        var self = this;
-        return new Promise(function (resolve, reject) {
-          var maskedText = self._getMaskedValue(text);
-
-          if (self._isControlled()) {
-            resolve(maskedText);
-            return;
+      _createClass(BaseTextComponent, [{
+        key: "shouldComponentUpdate",
+        value: function shouldComponentUpdate(nextProps, nextState) {
+          if (this.props.kind !== nextProps.kind) {
+            this._resolveMaskHandler(nextProps.kind);
           }
 
-          if (_this2.state.value == maskedText) {
-            resolve(_this2.state.value);
-            return;
-          }
+          return true;
+        }
+      }, {
+        key: "updateValue",
+        value: function updateValue(text) {
+          var _this2 = this;
 
-          self.setState({
-            value: maskedText
-          }, function () {
-            return resolve(maskedText);
+          var self = this;
+          return new Promise(function (resolve, reject) {
+            var maskedText = self._getMaskedValue(text);
+
+            if (self._isControlled()) {
+              resolve(maskedText);
+              return;
+            }
+
+            if (_this2.state.value == maskedText) {
+              resolve(_this2.state.value);
+              return;
+            }
+
+            self.setState({
+              value: maskedText
+            }, function () {
+              return resolve(maskedText);
+            });
           });
-        });
-      }
-    }, {
-      key: "isValid",
-      value: function isValid() {
-        var value = this._isControlled() ? this.props.value : this.state.value;
-        return this._maskHandler.validate(this._getDefaultValue(value), this.state.options);
-      }
-    }, {
-      key: "getRawValue",
-      value: function getRawValue() {
-        var value = this._isControlled() ? this.props.value : this.state.value;
-        return this._maskHandler.getRawValue(this._getDefaultValue(value), this.state.options);
-      }
-    }, {
-      key: "_isControlled",
-      value: function _isControlled() {
-        return this.props.value !== undefined;
-      }
-    }, {
-      key: "_resolveMaskHandler",
-      value: function _resolveMaskHandler(kind) {
-        this._maskHandler = MaskResolver.resolve(kind);
-      }
-    }, {
-      key: "_getDefaultMaskedValue",
-      value: function _getDefaultMaskedValue(value) {
-        if (this._getDefaultValue(value) === '') {
-          return '';
         }
-
-        return this._getMaskedValue(value);
-      }
-    }, {
-      key: "_getMaskedValue",
-      value: function _getMaskedValue(value) {
-        var oldValue = this.state && this.state.value;
-        return this._maskHandler.getValue(this._getDefaultValue(value), this.props.options, oldValue);
-      }
-    }, {
-      key: "_getDefaultValue",
-      value: function _getDefaultValue(value) {
-        if (value === undefined || value === null) {
-          return '';
+      }, {
+        key: "isValid",
+        value: function isValid() {
+          var value = this._isControlled() ? this.props.value : this.state.value;
+          return this._maskHandler.validate(this._getDefaultValue(value), this.state.options);
         }
+      }, {
+        key: "getRawValue",
+        value: function getRawValue() {
+          var value = this._isControlled() ? this.props.value : this.state.value;
+          return this._maskHandler.getRawValue(this._getDefaultValue(value), this.state.options);
+        }
+      }, {
+        key: "_isControlled",
+        value: function _isControlled() {
+          return this.props.value !== undefined;
+        }
+      }, {
+        key: "_resolveMaskHandler",
+        value: function _resolveMaskHandler(kind) {
+          this._maskHandler = MaskResolver.resolve(kind);
+        }
+      }, {
+        key: "_getDefaultMaskedValue",
+        value: function _getDefaultMaskedValue(value) {
+          if (this._getDefaultValue(value) === '') {
+            return '';
+          }
 
-        return value;
-      }
-    }]);
+          return this._getMaskedValue(value);
+        }
+      }, {
+        key: "_getMaskedValue",
+        value: function _getMaskedValue(value) {
+          var oldValue = this.state && this.state.value;
+          return this._maskHandler.getValue(this._getDefaultValue(value), this.props.options, oldValue);
+        }
+      }, {
+        key: "_getDefaultValue",
+        value: function _getDefaultValue(value) {
+          if (value === undefined || value === null) {
+            return '';
+          }
 
-    return BaseTextComponent;
-  }(React.Component);
+          return value;
+        }
+      }]);
+
+      return BaseTextComponent;
+    }(React.Component);
 
   var MaskService =
-  /*#__PURE__*/
-  function () {
-    function MaskService() {
-      _classCallCheck(this, MaskService);
-    }
-
-    _createClass(MaskService, null, [{
-      key: "toMask",
-      value: function toMask(type, value, settings) {
-        return MaskResolver.resolve(type).getValue(value, settings);
+    /*#__PURE__*/
+    function () {
+      function MaskService() {
+        _classCallCheck(this, MaskService);
       }
-    }, {
-      key: "isValid",
-      value: function isValid(type, value, settings) {
-        return MaskResolver.resolve(type).validate(value, settings);
-      }
-    }]);
 
-    return MaskService;
-  }();
+      _createClass(MaskService, null, [{
+        key: "toMask",
+        value: function toMask(type, value, settings) {
+          return MaskResolver.resolve(type).getValue(value, settings);
+        }
+      }, {
+        key: "isValid",
+        value: function isValid(type, value, settings) {
+          return MaskResolver.resolve(type).validate(value, settings);
+        }
+      }, {
+        key: "toRawValue",
+        value: function toRawValue(type, value, settings) {
+          return MaskResolver.resolve(type).getRawValue(value, settings);
+        }
+      }]);
+
+      return MaskService;
+    }();
 
   var TextInputMask =
-  /*#__PURE__*/
-  function (_BaseTextComponent) {
-    _inherits(TextInputMask, _BaseTextComponent);
+    /*#__PURE__*/
+    function (_BaseTextComponent) {
+      _inherits(TextInputMask, _BaseTextComponent);
 
-    function TextInputMask() {
-      _classCallCheck(this, TextInputMask);
+      function TextInputMask() {
+        _classCallCheck(this, TextInputMask);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(TextInputMask).apply(this, arguments));
-    }
-
-    _createClass(TextInputMask, [{
-      key: "getElement",
-      value: function getElement() {
-        return this._input;
+        return _possibleConstructorReturn(this, _getPrototypeOf(TextInputMask).apply(this, arguments));
       }
-    }, {
-      key: "_onChangeText",
-      value: function _onChangeText(text) {
-        var self = this;
 
-        if (!this._checkText(text)) {
-          return;
+      _createClass(TextInputMask, [{
+        key: "getElement",
+        value: function getElement() {
+          return this._input;
         }
+      }, {
+        key: "_onChangeText",
+        value: function _onChangeText(text) {
+          var self = this;
 
-        self.updateValue(text).then(function (maskedText) {
-          if (self.props.onChangeText) {
-            self.props.onChangeText(maskedText);
+          if (!this._checkText(text)) {
+            return;
           }
-        });
-      }
-    }, {
-      key: "_checkText",
-      value: function _checkText(text) {
-        if (this.props.checkText) {
-          var value = this._isControlled() ? this.props.value : this.state.value;
-          return this.props.checkText(value, text);
+
+          self.updateValue(text).then(function (maskedText) {
+            if (self.props.onChangeText) {
+              self.props.onChangeText(maskedText);
+            }
+          });
         }
-
-        return true;
-      }
-    }, {
-      key: "_propsParsed",
-      value: function _propsParsed(props) {
-        var newProps = props;
-        Object.keys(props).forEach(function (prop) {
-          if (typeof props[prop] === 'boolean') {
-            newProps[prop] = props[prop].toString();
+      }, {
+        key: "_checkText",
+        value: function _checkText(text) {
+          if (this.props.checkText) {
+            var value = this._isControlled() ? this.props.value : this.state.value;
+            return this.props.checkText(value, text);
           }
-        });
-        return newProps;
-      }
-    }, {
-      key: "render",
-      value: function render() {
-        var _this = this;
 
-        var _this$props = this.props,
+          return true;
+        }
+      }, {
+        key: "_propsParsed",
+        value: function _propsParsed(props) {
+          var newProps = props;
+          Object.keys(props).forEach(function (prop) {
+            if (typeof props[prop] === 'boolean') {
+              newProps[prop] = props[prop].toString();
+            }
+          });
+          return newProps;
+        }
+      }, {
+        key: "render",
+        value: function render() {
+          var _this = this;
+
+          var _this$props = this.props,
             defaultValue = _this$props.defaultValue,
             value = _this$props.value,
             onChange = _this$props.onChange,
             onChangeText = _this$props.onChangeText,
             otherProps = _objectWithoutProperties(_this$props, ["defaultValue", "value", "onChange", "onChangeText"]);
 
-        var parsedProps = this._propsParsed(otherProps);
+          var parsedProps = this._propsParsed(otherProps);
 
-        var maskedValue = this._getDefaultMaskedValue(this._isControlled() ? value : this.state.value);
+          var maskedValue = this._getDefaultMaskedValue(this._isControlled() ? value : this.state.value);
 
-        if (value !== undefined && defaultValue !== undefined) {
-          console.error("react-masked-text: ERROR - defaultValue and value shouldn't be set at the same time!");
+          if (value !== undefined && defaultValue !== undefined) {
+            console.error("react-masked-text: ERROR - defaultValue and value shouldn't be set at the same time!");
+          }
+
+          return React__default.createElement("input", _extends({
+            ref: function ref(_ref) {
+              _this._input = _ref;
+            },
+            onChange: function onChange(event) {
+              return _this._onChangeText(event.currentTarget.value);
+            },
+            value: maskedValue
+          }, parsedProps));
         }
+      }]);
 
-        return React__default.createElement("input", _extends({
-          ref: function ref(_ref) {
-            _this._input = _ref;
-          },
-          onChange: function onChange(event) {
-            return _this._onChangeText(event.currentTarget.value);
-          },
-          value: maskedValue
-        }, parsedProps));
-      }
-    }]);
-
-    return TextInputMask;
-  }(BaseTextComponent);
+      return TextInputMask;
+    }(BaseTextComponent);
 
   exports.MaskService = MaskService;
   exports.default = TextInputMask;
